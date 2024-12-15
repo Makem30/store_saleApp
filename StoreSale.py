@@ -22,3 +22,4 @@ transactions = pd.read_csv('transactions.csv', delimiter=",")
 
 with st.sidebar:
   st.title('DASHBOARD')
+  st.sidebar.title("Comparateur de données")
