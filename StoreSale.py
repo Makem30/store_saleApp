@@ -20,6 +20,6 @@ transactions = pd.read_csv('transactions.csv', delimiter=",")
   #Content for the first column
 # with col2:
 
-with st.sidebar:
-  st.title('DASHBOARD')
-  st.sidebar.title("Comparateur de données")
+# with st.sidebar:
+#   st.title('DASHBOARD')
+#   st.sidebar.title("Comparateur de données")
