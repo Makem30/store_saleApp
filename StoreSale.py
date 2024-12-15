@@ -14,10 +14,10 @@ transactions = pd.read_csv('transactions.csv', delimiter=",")
 # Create two columns
 col1, col2 = st.columns([0.5,0.4],gap="large")
 
-with col1:
+# with col1:
 
   #Content for the first column
-with col2:
+# with col2:
 
   with st.sidebar:
     st.title('DASHBOARD')
