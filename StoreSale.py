@@ -5,7 +5,7 @@ import numpy as np
 
 #Charger les Données :
 holidays_events = pd.read_csv('holidays_events.csv', delimiter=",")
-train = pd.read_csv('train.csv', delimiter=",")
+# train = pd.read_csv('train.csv', delimiter=",")
 test = pd.read_csv('test.csv', delimiter=",")
 stores = pd.read_csv('stores.csv', delimiter=",")
 oil = pd.read_csv('oil.csv', delimiter=",")
