@@ -15,7 +15,7 @@ import zipfile
 
 with zipfile.ZipFile("train.zip", "r") as zip_ref:
     zip_ref.extractall("./data/")
-data = pd.read_csv("train.csv")
+train = pd.read_csv("train.csv")
 
 
 # Create two columns
