@@ -12,7 +12,7 @@ sample_submission = pd.read_csv('sample_submission.csv', delimiter=",")
 transactions = pd.read_csv('transactions.csv', delimiter=",")
 
 # Create two columns
-col1, col2 = st.columns([0.5,0.4],gap="large")
+# col1, col2 = st.columns([0.5,0.4],gap="large")
 
 # with col1:
 
