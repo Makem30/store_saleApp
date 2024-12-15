@@ -19,5 +19,5 @@ col1, col2 = st.columns([0.5,0.4],gap="large")
   #Content for the first column
 # with col2:
 
-  with st.sidebar:
-    st.title('DASHBOARD')
+with st.sidebar:
+  st.title('DASHBOARD')
