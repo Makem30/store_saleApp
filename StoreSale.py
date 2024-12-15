@@ -11,6 +11,12 @@ stores = pd.read_csv('stores.csv', delimiter=",")
 oil = pd.read_csv('oil.csv', delimiter=",")
 sample_submission = pd.read_csv('sample_submission.csv', delimiter=",")
 transactions = pd.read_csv('transactions.csv', delimiter=",")
+import zipfile
+
+with zipfile.ZipFile("train.zip", "r") as zip_ref:
+    zip_ref.extractall("./data/")
+data = pd.read_csv("train.csv")
+
 
 # Create two columns
 # col1, col2 = st.columns([0.5,0.4],gap="large")
