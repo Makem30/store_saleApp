@@ -14,7 +14,7 @@ transactions = pd.read_csv('transactions.csv', delimiter=",")
 import zipfile
 
 with zipfile.ZipFile("train.zip", "r") as zip_ref:
-    zip_ref.extractall("./data/")
+    zip_ref.extractall("./train.zip/")
 train = pd.read_csv("train.csv")
 
 
