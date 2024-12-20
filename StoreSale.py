@@ -6,7 +6,8 @@ import numpy as np
 
 # import matplotlib.pyplot as plt
 # import seaborn as sns
-
+with st.sidebar:
+    st.title('DASHBOARD')
 #Charger les Données :
 holidays_events = pd.read_csv('holidays_events.csv', delimiter=",")
 train = pd.read_csv('train.csv', delimiter=",")
@@ -28,8 +29,7 @@ stores['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en
 
 # Créer la sidebar
 
-with st.sidebar:
-    st.title('DASHBOARD')
+
 st.sidebar.title("Filtres")
 
 chart = alt.Chart(filtered_data).mark_bar().encode(
