@@ -28,33 +28,4 @@ stores['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en
 
 # Créer la sidebar
 st.sidebar.title("Filtres")
-# selected_year = st.sidebar.selectbox("Sélectionner l'année", train['date'].dt.year.unique())
-# selected_month = st.sidebar.selectbox("Sélectionner le mois", train['date'].dt.month.unique())
 
-# Filtrer les données en fonction des sélections
-# import streamlit as st
-# import pandas as pd 
-# import altair as alt
-# import numpy as np
-# chart = alt.Chart(filtered_data).mark_bar().encode(
-#        alt.X("sales:Q", bin=True),
-#        alt.Y("count()")
-#    ).properties(
-#        title=f"Distribution des ventes pour {selected_month}/{selected_year}"
-#    )
-# st.altair_chart(chart, use_container_width=True)
-
-
-
-# Grouper les données par mois et calculer les ventes totales
-monthly_sales = train.groupby(train['date'].dt.to_period('M'))['sales'].sum().reset_index()
-monthly_sales['date'] = monthly_sales['date'].dt.to_timestamp()  # Revenir à un format de date
-
-# Créer le graphique avec Plotly Express
-
-fig = px.bar(monthly_sales, x='date', y='sales', title="Ventes totales par mois")
-fig.update_xaxes(title_text="Mois")
-fig.update_yaxes(title_text="Ventes totales")
-
-# Afficher le graphique dans Streamlit
-st.plotly_chart(fig)
