@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 import numpy as np
 import plotly.express as px
-  pip install plotly
+    pip install plotly
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 
