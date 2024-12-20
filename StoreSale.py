@@ -24,27 +24,24 @@ st.sidebar.title("Filtres")
 selected_year = st.sidebar.selectbox("Sélectionner l'année", train['date'].dt.year.unique())
 selected_month = st.sidebar.selectbox("Sélectionner le mois", train['date'].dt.month.unique())
 
-
 # Filtrer les données en fonction des sélections
 filtered_data = train[
     (train['date'].dt.year == selected_year) & (train['date'].dt.month == selected_month)
 ]
 
-# Créer les graphiques
-if st.sidebar.button("Afficher les ventes par mois"):
-    fig, ax = plt.subplots(figsize=(10, 6))  
-    sns.lineplot(x='date', y='sales', data=filtered_data, ax=ax) 
-    ax.set_title(f"Ventes pour {selected_month}/{selected_year}") 
-    st.pyplot(fig) 
+# Calculer les ventes totales pour le mois sélectionné
+total_sales = filtered_data['sales'].sum()
 
-if st.sidebar.button("Afficher les ventes par an"):
-    yearly_sales = train.groupby(train['date'].dt.year)['sales'].sum().reset_index()
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(x='date', y='sales', data=yearly_sales, ax=ax)
-    ax.set_title("Ventes annuelles")
-    st.pyplot(fig)
+# Afficher les ventes totales
+st.write(f"Ventes totales pour {selected_month}/{selected_year}: {total_sales}")
 
-
+# Créer l'histogramme
+fig, ax = plt.subplots()
+ax.hist(filtered_data['sales'], bins=20)  # Ajuster le nombre de bins si nécessaire
+ax.set_xlabel("Ventes")
+ax.set_ylabel("Fréquence")
+ax.set_title(f"Distribution des ventes pour {selected_month}/{selected_year}")
+st.pyplot(fig)
 
 
 # import zipfile
