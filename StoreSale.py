@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 import numpy as np
 # import matplotlib.pyplot as plt
-import seaborn as sns
+# import seaborn as sns
 
 #Charger les Données :
 holidays_events = pd.read_csv('holidays_events.csv', delimiter=",")
