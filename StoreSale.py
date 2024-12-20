@@ -21,28 +21,17 @@ train['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en 
 
 # Créer la sidebar
 st.sidebar.title("Filtres")
-selected_year = st.sidebar.selectbox("Sélectionner l'année", train['date'].dt.year.unique())
-selected_month = st.sidebar.selectbox("Sélectionner le mois", train['date'].dt.month.unique())
+# selected_year = st.sidebar.selectbox("Sélectionner l'année", train['date'].dt.year.unique())
+# selected_month = st.sidebar.selectbox("Sélectionner le mois", train['date'].dt.month.unique())
 
 # Filtrer les données en fonction des sélections
-filtered_data = train[
-    (train['date'].dt.year == selected_year) & (train['date'].dt.month == selected_month)
-]
-
-# Calculer les ventes totales pour le mois sélectionné
-total_sales = filtered_data['sales'].sum()
-
-# Afficher les ventes totales
-st.write(f"Ventes totales pour {selected_month}/{selected_year}: {total_sales}")
-
-# Créer l'histogramme
-fig, ax = plt.subplots()
-ax.hist(filtered_data['sales'], bins=20)  # Ajuster le nombre de bins si nécessaire
-ax.set_xlabel("Ventes")
-ax.set_ylabel("Fréquence")
-ax.set_title(f"Distribution des ventes pour {selected_month}/{selected_year}")
-st.pyplot(fig)
-
+chart = alt.Chart(filtered_data).mark_bar().encode(
+       alt.X("sales:Q", bin=True),
+       alt.Y("count()")
+   ).properties(
+       title=f"Distribution des ventes pour {selected_month}/{selected_year}"
+   )
+   st.altair_chart(chart, use_container_width=True)
 
 # import zipfile
 # with zipfile.ZipFile("train.zip", "r") as zip_ref:
