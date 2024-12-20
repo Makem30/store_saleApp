@@ -29,3 +29,11 @@ stores['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en
 # Créer la sidebar
 st.sidebar.title("Filtres")
 
+chart = alt.Chart(filtered_data).mark_bar().encode(
+    alt.X("sales:Q", bin=True),
+    alt.Y("count()")
+).properties(
+    title=f"Distribution des ventes pour {selected_month}/{selected_year}"
+)
+st.altair_chart(chart, use_container_width=True)
+
