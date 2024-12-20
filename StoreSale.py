@@ -25,6 +25,10 @@ st.sidebar.title("Filtres")
 # selected_month = st.sidebar.selectbox("Sélectionner le mois", train['date'].dt.month.unique())
 
 # Filtrer les données en fonction des sélections
+import streamlit as st
+import pandas as pd 
+import altair as alt
+import numpy as np
 chart = alt.Chart(filtered_data).mark_bar().encode(
        alt.X("sales:Q", bin=True),
        alt.Y("count()")
