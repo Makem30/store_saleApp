@@ -27,6 +27,9 @@ holidays_events['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 
 stores['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en datetime
 
 # Créer la sidebar
+
+with st.sidebar:
+    st.title('DASHBOARD')
 st.sidebar.title("Filtres")
 
 chart = alt.Chart(filtered_data).mark_bar().encode(
