@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd 
 import altair as alt
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import seaborn as sns
 
 #Charger les Données :
@@ -31,7 +31,7 @@ chart = alt.Chart(filtered_data).mark_bar().encode(
    ).properties(
        title=f"Distribution des ventes pour {selected_month}/{selected_year}"
    )
-   st.altair_chart(chart, use_container_width=True)
+          st.altair_chart(chart, use_container_width=True)
 
 # import zipfile
 # with zipfile.ZipFile("train.zip", "r") as zip_ref:
