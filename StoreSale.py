@@ -25,39 +25,41 @@ test['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en d
 holidays_events['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en datetime
 stores['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en datetime
 
-# Créer la sidebar
+# Create two columns
+col1, col2 = st.columns([0.5,0.4],gap="large")
 
-
+with col2:
 # Calculer les ventes totales par magasin
-store_sales = train.groupby('store_nbr')['sales'].sum().reset_index()
-
-# Créer le graphique en donut avec Altair
-chart = alt.Chart(store_sales).mark_arc(innerRadius=50).encode(
-    theta="sales:Q",
-    color="store_nbr:N"
-).properties(
-    title="Répartition des ventes par magasin"
-)
-
-# Afficher le graphique dans Streamlit
-st.altair_chart(chart, use_container_width=True)
+    store_sales = train.groupby('store_nbr')['sales'].sum().reset_index()
+    
+    # Créer le graphique en donut avec Altair
+    chart = alt.Chart(store_sales).mark_arc(innerRadius=50).encode(
+        theta="sales:Q",
+        color="store_nbr:N"
+    ).properties(
+        title="Répartition des ventes par magasin"
+    )
+    
+    # Afficher le graphique dans Streamlit
+    st.altair_chart(chart, use_container_width=True)
 
 
 # ---------------------------------------------------------------------
+with col1:
 # Calculer les ventes totales par magasin
-store_sales = train.groupby('store_nbr')['sales'].sum().reset_index()
-
-# Trier les magasins par ventes totales et sélectionner le top 10
-top_10_stores = store_sales.sort_values(by='sales', ascending=False).head(10)
-
-# Créer l'histogramme avec Altair
-chart = alt.Chart(top_10_stores).mark_bar().encode(
-    x=alt.X('store_nbr:N', title="Magasin"),  # 'N' pour type nominal (catégoriel)
-    y=alt.Y('sales:Q', title="Ventes totales")   # 'Q' pour type quantitatif
-).properties(
-    title="Top 10 des magasins avec les meilleures ventes"
-)
-
-
-# Afficher l'histogramme dans Streamlit
-st.altair_chart(chart, use_container_width=True)
+    store_sales = train.groupby('store_nbr')['sales'].sum().reset_index()
+    
+    # Trier les magasins par ventes totales et sélectionner le top 10
+    top_10_stores = store_sales.sort_values(by='sales', ascending=False).head(10)
+    
+    # Créer l'histogramme avec Altair
+    chart = alt.Chart(top_10_stores).mark_bar().encode(
+        x=alt.X('store_nbr:N', title="Magasin"),  # 'N' pour type nominal (catégoriel)
+        y=alt.Y('sales:Q', title="Ventes totales")   # 'Q' pour type quantitatif
+    ).properties(
+        title="Top 10 des magasins avec les meilleures ventes"
+    )
+    
+    
+    # Afficher l'histogramme dans Streamlit
+    st.altair_chart(chart, use_container_width=True)
