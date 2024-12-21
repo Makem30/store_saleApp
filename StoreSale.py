@@ -110,3 +110,28 @@ chart = alt.Chart(avg_sales_by_store).mark_bar().encode(
 
 # Afficher le graphique dans Streamlit
 st.altair_chart(chart, use_container_width=True)
+#---------------------------------------------------------------------------------------
+# Fonction pour faire des prédictions
+def predict_sales(selected_year, model):
+    # Créer un DataFrame pour les prédictions
+    future_data = pd.DataFrame({'year': [selected_year]}) # Ajoutez d'autres caractéristiques si nécessaire
+    
+    # Faire les prédictions en utilisant votre modèle
+    predictions = model.predict(future_data)  
+    
+    # Retourner les prédictions
+    return predictions
+
+# Sidebar pour la sélection de l'année
+st.sidebar.title("Prédictions")
+selected_year = st.sidebar.selectbox("Sélectionner l'année", [2015, 2016])
+
+# Entraîner votre modèle (RandomForestRegressor ou autre)
+# ...
+
+# Faire les prédictions
+predictions = predict_sales(selected_year, model)
+
+# Afficher les prédictions
+st.title(f"Prédictions des ventes pour {selected_year}")
+
