@@ -43,4 +43,4 @@ fig = px.pie(
 )
 
 # Afficher le graphique dans Streamlit
-st.plotly_chart(fig)
+st.altair_chart(donut_chart, use_container_width=True)
