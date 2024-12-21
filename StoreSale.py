@@ -91,3 +91,22 @@ chart = alt.Chart(daily_sales).mark_bar().encode(
 
 # Afficher l'histogramme dans Streamlit
 st.altair_chart(chart, use_container_width=True)
+
+#---------------------------------------------------------------------------------------
+# Normaliser les ventes (vous pouvez ajuster la méthode de normalisation si nécessaire)
+train['sales_scaled'] = (train['sales'] - train['sales'].min()) / (train['sales'].max() - train['sales'].min())
+
+# Calculer les ventes moyennes normalisées par magasin
+avg_sales_by_store = train.groupby('store_nbr')['sales_scaled'].mean().reset_index()
+
+# Créer le graphique avec Altair
+chart = alt.Chart(avg_sales_by_store).mark_bar().encode(
+    x=alt.X('store_nbr:N', title="Magasin"),
+    y=alt.Y('sales_scaled:Q', title="Ventes moyennes normalisées"),
+    color=alt.Color('sales_scaled:Q', scale=alt.Scale(scheme='viridis'))  # Colorer par ventes normalisées
+).properties(
+    title="Visualisation des ventes moyennes par magasin normalisées"
+)
+
+# Afficher le graphique dans Streamlit
+st.altair_chart(chart, use_container_width=True)
