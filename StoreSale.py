@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd 
 import altair as alt
 import numpy as np
+import matplotlib.pyplot as plt
 # import plotly.express as px
 
 import matplotlib.pyplot as plt
@@ -52,14 +53,13 @@ store_sales = train.groupby('store_nbr')['sales'].sum().reset_index()
 # Trier les magasins par ventes totales et sélectionner le top 10
 top_10_stores = store_sales.sort_values(by='sales', ascending=False).head(10)
 
-# Créer l'histogramme avec Plotly Express
-fig = px.bar(
-    top_10_stores, 
-    x='store_nbr', 
-    y='sales', 
-    title="Top 10 des magasins avec les meilleures ventes",
-    labels={'store_nbr': 'Magasin', 'sales': 'Ventes totales'}
-)
+# Créer l'histogramme avec Matplotlib
+fig, ax = plt.subplots(figsize=(10, 6))  # Ajuster la taille si nécessaire
+ax.bar(top_10_stores['store_nbr'], top_10_stores['sales'])
+ax.set_xlabel("Magasin")
+ax.set_ylabel("Ventes totales")
+ax.set_title("Top 10 des magasins avec les meilleures ventes")
+ax.set_xticks(top_10_stores['store_nbr'])  # Afficher tous les numéros de magasin sur l'axe des x
 
 # Afficher l'histogramme dans Streamlit
-st.plotly_chart(fig)
+st.pyplot(fig)
