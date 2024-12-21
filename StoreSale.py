@@ -33,14 +33,13 @@ stores['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en
 # Calculer les ventes totales par magasin
 store_sales = train.groupby('store_nbr')['sales'].sum().reset_index()
 
-# Créer le graphique en donut avec Plotly Express
-fig = px.pie(
-    store_sales, 
-    values='sales', 
-    names='store_nbr', 
-    title="Répartition des ventes par magasin",
-    hole=0.4  # Définir la taille du trou pour créer un donut
+# Créer le graphique en donut avec Altair
+chart = alt.Chart(store_sales).mark_arc(innerRadius=50).encode(
+    theta="sales:Q",
+    color="store_nbr:N"
+).properties(
+    title="Répartition des ventes par magasin"
 )
 
 # Afficher le graphique dans Streamlit
-st.altair_chart(donut_chart, use_container_width=True)
+st.altair_chart(chart, use_container_width=True)
