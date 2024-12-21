@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd 
 import altair as alt
 import numpy as np
-
+import plotly.express as px
 
 # import matplotlib.pyplot as plt
 # import seaborn as sns
@@ -30,13 +30,17 @@ stores['date'] = pd.to_datetime(train['date'])  # Convertir la colonne 'date' en
 # Créer la sidebar
 
 
-st.sidebar.title("Filtres")
+# Calculer les ventes totales par magasin
+store_sales = train.groupby('store_nbr')['sales'].sum().reset_index()
 
-chart = alt.Chart(filtered_data).mark_bar().encode(
-    alt.X("sales:Q", bin=True),
-    alt.Y("count()")
-).properties(
-    title=f"Distribution des ventes pour {selected_month}/{selected_year}"
+# Créer le graphique en donut avec Plotly Express
+fig = px.pie(
+    store_sales, 
+    values='sales', 
+    names='store_nbr', 
+    title="Répartition des ventes par magasin",
+    hole=0.4  # Définir la taille du trou pour créer un donut
 )
-st.altair_chart(chart, use_container_width=True)
 
+# Afficher le graphique dans Streamlit
+st.plotly_chart(fig)
