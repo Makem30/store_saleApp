@@ -45,7 +45,7 @@ chart = alt.Chart(store_sales).mark_arc(innerRadius=50).encode(
 st.altair_chart(chart, use_container_width=True)
 
 
----------------------------------------------------------------------
+# ---------------------------------------------------------------------
 # Calculer les ventes totales par magasin
 store_sales = train.groupby('store_nbr')['sales'].sum().reset_index()
 
