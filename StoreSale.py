@@ -2,9 +2,7 @@ import streamlit as st
 import pandas as pd 
 import altair as alt
 import numpy as np
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
+
 # import seaborn as sns
 with st.sidebar:
     st.title('DASHBOARD')
@@ -113,27 +111,16 @@ chart = alt.Chart(avg_sales_by_store).mark_bar().encode(
 # Afficher le graphique dans Streamlit
 st.altair_chart(chart, use_container_width=True)
 #---------------------------------------------------------------------------------------
-# Fonction pour faire des prédictions
-def predict_sales(selected_year, model):
-    # Créer un DataFrame pour les prédictions
-    future_data = pd.DataFrame({'year': [selected_year]}) # Ajoutez d'autres caractéristiques si nécessaire
-    
-    # Faire les prédictions en utilisant votre modèle
-    predictions = model.predict(future_data)  
-    
-    # Retourner les prédictions
-    return predictions
+# Sidebar pour la sélection du magasin
+st.sidebar.title("Sélection du magasin")
+selected_store = st.sidebar.selectbox("Magasin", train['store_nbr'].unique())
 
-# Sidebar pour la sélection de l'année
-st.sidebar.title("Prédictions")
-selected_year = st.sidebar.selectbox("Sélectionner l'année", [2015, 2016])
+# Filtrer les données pour le magasin sélectionné
+filtered_data = train[train['store_nbr'] == selected_store]
 
-# Entraîner votre modèle (RandomForestRegressor ou autre)
-# ...
+# Obtenir la liste des produits uniques pour le magasin sélectionné
+products = filtered_data['family'].unique()  # Utilisez 'family' pour les produits
 
-# Faire les prédictions
-predictions = predict_sales(selected_year, model)
-
-# Afficher les prédictions
-st.title(f"Prédictions des ventes pour {selected_year}")
-
+# Afficher la liste des produits
+st.title(f"Liste des produits pour le magasin {selected_store}")
+st.write(products)  # Ou utilisez st.table(products) pour un affichage en tableau
