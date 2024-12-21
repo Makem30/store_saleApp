@@ -4,7 +4,7 @@ import altair as alt
 import numpy as np
 # import plotly.express as px
 
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 # import seaborn as sns
 with st.sidebar:
     st.title('DASHBOARD')
@@ -43,3 +43,23 @@ chart = alt.Chart(store_sales).mark_arc(innerRadius=50).encode(
 
 # Afficher le graphique dans Streamlit
 st.altair_chart(chart, use_container_width=True)
+
+
+---------------------------------------------------------------------
+# Calculer les ventes totales par magasin
+store_sales = train.groupby('store_nbr')['sales'].sum().reset_index()
+
+# Trier les magasins par ventes totales et sélectionner le top 10
+top_10_stores = store_sales.sort_values(by='sales', ascending=False).head(10)
+
+# Créer l'histogramme avec Plotly Express
+fig = px.bar(
+    top_10_stores, 
+    x='store_nbr', 
+    y='sales', 
+    title="Top 10 des magasins avec les meilleures ventes",
+    labels={'store_nbr': 'Magasin', 'sales': 'Ventes totales'}
+)
+
+# Afficher l'histogramme dans Streamlit
+st.plotly_chart(fig)
