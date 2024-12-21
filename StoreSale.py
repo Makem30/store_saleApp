@@ -94,7 +94,7 @@ st.altair_chart(chart, use_container_width=True)
 
 #---------------------------------------------------------------------------------------
 # Normaliser les ventes (vous pouvez ajuster la méthode de normalisation si nécessaire)
-train['sales_scaled'] = (train['sales'] - train['sales'].min()) / (train['sales'].max() - train['sales'].min())
+# train['sales_scaled'] = (train['sales'] - train['sales'].min()) / (train['sales'].max() - train['sales'].min())
 
 # Calculer les ventes moyennes normalisées par magasin
 avg_sales_by_store = train.groupby('store_nbr')['sales_scaled'].mean().reset_index()
