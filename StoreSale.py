@@ -63,3 +63,31 @@ with col1:
     
     # Afficher l'histogramme dans Streamlit
     st.altair_chart(chart, use_container_width=True)
+
+
+#---------------------------------------------------------------------------------------
+
+# Sidebar pour la sélection de l'année et du mois
+st.sidebar.title("Filtres")
+selected_year = st.sidebar.selectbox("Sélectionner l'année", train['date'].dt.year.unique())
+selected_month = st.sidebar.selectbox("Sélectionner le mois", train['date'].dt.month.unique())
+
+# Filtrer les données en fonction des sélections
+filtered_data = train[
+    (train['date'].dt.year == selected_year) & (train['date'].dt.month == selected_month)
+]
+
+# Calculer les ventes totales par jour pour le mois sélectionné
+daily_sales = filtered_data.groupby(filtered_data['date'].dt.day)['sales'].sum().reset_index()
+
+# Créer l'histogramme coloré avec Altair
+chart = alt.Chart(daily_sales).mark_bar().encode(
+    x=alt.X('date:T', title="Jour du mois"),  # 'T' pour type temporel
+    y=alt.Y('sales:Q', title="Ventes totales"),
+    color=alt.Color('sales:Q', scale=alt.Scale(scheme='viridis'))  # Colorer par ventes totales
+).properties(
+    title=f"Ventes totales pour {selected_month}/{selected_year}"
+)
+
+# Afficher l'histogramme dans Streamlit
+st.altair_chart(chart, use_container_width=True)
