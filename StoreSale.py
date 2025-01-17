@@ -129,4 +129,20 @@ chart = alt.Chart(avg_sales_by_store).mark_bar().encode(
 # Afficher le graphique dans Streamlit
 st.altair_chart(chart, use_container_width=True)
 #---------------------------------------------------------------------------------------
+# Liste des catégories de produits uniques
+categories = data['Categorie_Produit'].unique()
 
+# Sélection de la catégorie sur la sidebar
+selected_category = st.sidebar.selectbox('Sélectionnez une catégorie de produit', categories)
+
+# Filtrer les données pour la catégorie sélectionnée
+filtered_data = data[data['Categorie_Produit'] == selected_category]
+
+# Grouper par produit, puis calculer la quantité vendue
+product_sales = filtered_data.groupby('Categorie_Produit')['Quantite'].sum().reset_index()
+
+# Trier par quantité vendue et obtenir le top 5
+top_products = product_sales.sort_values('Quantite', ascending=False).head(5)
+
+# Afficher le tableau sur Streamlit
+st.table(top_products)
